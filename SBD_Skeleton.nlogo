@@ -214,9 +214,9 @@ SLIDER
 male-disp
 male-disp
 0
-10
-8.5
-0.5
+3
+0.2
+0.2
 1
 NIL
 HORIZONTAL
@@ -229,8 +229,8 @@ SLIDER
 fem-disp
 fem-disp
 0
-0.5
-0.31
+0.35
+0.05
 0.05
 1
 NIL
@@ -712,12 +712,12 @@ NetLogo 5.1.0
     <steppedValueSet variable="dist-extent" first="0" step="20" last="80"/>
     <steppedValueSet variable="dist-freq" first="5" step="5" last="20"/>
   </experiment>
-  <experiment name="dispersal" repetitions="20" runMetricsEveryStep="false">
+  <experiment name="dispersal" repetitions="50" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>ticks</metric>
-    <steppedValueSet variable="male-disp" first="0.5" step="2" last="8.5"/>
-    <steppedValueSet variable="fem-disp" first="0.01" step="0.05" last="0.31"/>
+    <steppedValueSet variable="male-disp" first="0.2" step="0.2" last="3"/>
+    <steppedValueSet variable="fem-disp" first="0.01" step="0.05" last="0.36"/>
   </experiment>
   <experiment name="grandexperiment" repetitions="10" runMetricsEveryStep="false">
     <setup>setup</setup>
