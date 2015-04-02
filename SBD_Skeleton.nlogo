@@ -74,7 +74,7 @@ to dispersal
     
     ;; Female philopatry
     if sex = "female" [
-      fd random-exponential fem-disp
+      fd random-poisson fem-disp
     ]
   ]
 end
@@ -213,10 +213,10 @@ SLIDER
 437
 male-disp
 male-disp
-0
+1
+8
 3
-2
-0.2
+1
 1
 NIL
 HORIZONTAL
@@ -228,10 +228,10 @@ SLIDER
 475
 fem-disp
 fem-disp
-0
-0.35
-0.15
-0.05
+1
+8
+1
+1
 1
 NIL
 HORIZONTAL
