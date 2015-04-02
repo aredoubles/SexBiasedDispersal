@@ -16,7 +16,7 @@ to setup
   create-skippers 200 [
     setxy random-xcor random-ycor
     set size 1
-    set shape "butterfly"
+    set shape "dragonfly"
     set trait 5
     set health init-health
     set partnered? false
@@ -35,10 +35,10 @@ to go
   if count skippers >= 4000 [ stop ]
   ;if ticks >= 2800 [stop]
   
-  disturbance
   dispersal
   selection
   breeding
+  disturbance
   
   ask skippers [
     set partnered? false
@@ -215,7 +215,7 @@ male-disp
 male-disp
 0
 3
-0.2
+2
 0.2
 1
 NIL
@@ -230,7 +230,7 @@ fem-disp
 fem-disp
 0
 0.35
-0.05
+0.15
 0.05
 1
 NIL
@@ -335,10 +335,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-632
-261
-745
-306
+238
+424
+351
+469
 Suitable patches
 count patches with [(env < 7) and (env > 3)]
 1
@@ -437,6 +437,21 @@ Circle -16777216 true false 135 90 30
 Line -16777216 false 150 105 195 60
 Line -16777216 false 150 105 105 60
 
+butterfly 2
+true
+0
+Polygon -16777216 true false 151 76 138 91 138 284 150 296 162 286 162 91
+Polygon -7500403 true true 164 106 184 79 205 61 236 48 259 53 279 86 287 119 289 158 278 177 256 182 164 181
+Polygon -7500403 true true 136 110 119 82 110 71 85 61 59 48 36 56 17 88 6 115 2 147 15 178 134 178
+Polygon -7500403 true true 46 181 28 227 50 255 77 273 112 283 135 274 135 180
+Polygon -7500403 true true 165 185 254 184 272 224 255 251 236 267 191 283 164 276
+Line -7500403 true 167 47 159 82
+Line -7500403 true 136 47 145 81
+Circle -7500403 true true 165 45 8
+Circle -7500403 true true 134 45 6
+Circle -7500403 true true 133 44 7
+Circle -7500403 true true 133 43 8
+
 car
 false
 0
@@ -474,6 +489,16 @@ dot
 false
 0
 Circle -7500403 true true 90 90 120
+
+dragonfly
+true
+0
+Polygon -13791810 true false 150 60 135 75 138 284 150 296 162 286 165 75
+Polygon -7500403 true true 136 95 120 90 105 90 90 90 75 90 30 90 15 105 15 120 45 135 75 135 135 135
+Polygon -7500403 true true 30 150 15 165 45 195 75 195 120 195 135 180 135 150
+Polygon -7500403 true true 164 95 180 90 195 90 210 90 225 90 270 90 285 105 285 120 255 135 225 135 165 135
+Polygon -7500403 true true 270 150 285 165 255 195 225 195 180 195 165 180 165 150
+Rectangle -7500403 true true 120 60 180 75
 
 face happy
 false
@@ -712,11 +737,11 @@ NetLogo 5.1.0
     <steppedValueSet variable="dist-extent" first="0" step="20" last="80"/>
     <steppedValueSet variable="dist-freq" first="5" step="5" last="20"/>
   </experiment>
-  <experiment name="dispersal" repetitions="50" runMetricsEveryStep="false">
+  <experiment name="dispersal" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>ticks</metric>
-    <steppedValueSet variable="male-disp" first="0.2" step="0.2" last="3"/>
+    <steppedValueSet variable="male-disp" first="0.2" step="0.4" last="3"/>
     <steppedValueSet variable="fem-disp" first="0.01" step="0.05" last="0.36"/>
   </experiment>
   <experiment name="grandexperiment" repetitions="10" runMetricsEveryStep="false">
