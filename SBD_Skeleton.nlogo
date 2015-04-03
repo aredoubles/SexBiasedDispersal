@@ -1,4 +1,4 @@
-globals [match]
+globals [match running-sr-total]
 
 breed [skippers skipper]
 
@@ -25,6 +25,8 @@ to setup
         [set sex "male" set color 44]
         [set sex "female" set color 47]
   ]
+  
+  set running-sr-total 0
   
   reset-ticks
 end
@@ -88,6 +90,12 @@ to selection
     if health <= 0 [die]
     ;; Carrying capacity now instituted with dispersal, rather than selection
     ]
+  
+  ;; Calculate the overall sex ratio by keeping a running tally, and in data analysis, dividing that by the number of ticks
+  ;; Final sex ratio far too skewed, small sample sizes
+  let current-sr ((count skippers with [sex = "male"]) / (count skippers))
+  set running-sr-total (running-sr-total + current-sr)
+  ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
   
 end
 
@@ -213,9 +221,9 @@ SLIDER
 437
 male-disp
 male-disp
-0.5
+0.1
 8
-3
+5.6
 0.1
 1
 NIL
@@ -230,7 +238,7 @@ fem-disp
 fem-disp
 0
 8
-0.1
+0.4
 0.1
 1
 NIL
@@ -335,15 +343,34 @@ NIL
 HORIZONTAL
 
 MONITOR
-238
-424
-351
-469
-Suitable patches
-count patches with [(env < 7) and (env > 3)]
-1
+240
+419
+307
+464
+sex ratio
+(count skippers with [sex = \"male\"]) / (count skippers)
+2
 1
 11
+
+PLOT
+587
+271
+787
+421
+sex ratio
+NIL
+NIL
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (count skippers with [sex = \"male\"]) / (count skippers)"
+"pen-1" 1.0 0 -2674135 true "" "plot 0.5"
 
 @#$#@#$#@
 # Sex-biased dispersal and population persistence in changing landscapes
@@ -755,6 +782,28 @@ NetLogo 5.1.0
     <steppedValueSet variable="fem-disp" first="0.05" step="0.05" last="0.3"/>
     <steppedValueSet variable="dist-extent" first="10" step="20" last="90"/>
     <steppedValueSet variable="dist-freq" first="5" step="10" last="25"/>
+  </experiment>
+  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>ticks</metric>
+    <metric>(running-sr-total / ticks)</metric>
+    <enumeratedValueSet variable="male-disp">
+      <value value="0.1"/>
+      <value value="1"/>
+      <value value="2"/>
+      <value value="3"/>
+      <value value="4"/>
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="fem-disp">
+      <value value="0.1"/>
+      <value value="1"/>
+      <value value="2"/>
+      <value value="3"/>
+      <value value="4"/>
+      <value value="5"/>
+    </enumeratedValueSet>
   </experiment>
 </experiments>
 @#$#@#$#@
