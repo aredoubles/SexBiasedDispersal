@@ -34,7 +34,7 @@ end
 to go
   
   if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
-  if count skippers >= 4000 [ stop ]
+  ;if count skippers >= 4000 [ stop ]
   ;if ticks >= 2800 [stop]
   
   dispersal
@@ -221,10 +221,10 @@ SLIDER
 437
 male-disp
 male-disp
-0.1
-8
-5.6
-0.1
+0.01
+2
+2
+0.01
 1
 NIL
 HORIZONTAL
@@ -236,10 +236,10 @@ SLIDER
 475
 fem-disp
 fem-disp
-0
-8
-0.4
-0.1
+0.01
+2
+0.08
+0.01
 1
 NIL
 HORIZONTAL
@@ -312,8 +312,8 @@ To get model working
 PLOT
 586
 41
-874
-255
+788
+206
 Population Size
 NIL
 NIL
@@ -354,10 +354,10 @@ sex ratio
 11
 
 PLOT
-587
-271
-787
-421
+586
+215
+786
+365
 sex ratio
 NIL
 NIL
@@ -371,6 +371,38 @@ false
 PENS
 "default" 1.0 0 -16777216 true "" "plot (count skippers with [sex = \"male\"]) / (count skippers)"
 "pen-1" 1.0 0 -2674135 true "" "plot 0.5"
+
+PLOT
+587
+371
+787
+521
+patch dominance
+NIL
+NIL
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"male-dom" 1.0 0 -16777216 true "" "plot (count patches with [(count skippers-here with [sex = \"male\"]) > (count skippers-here with [sex = \"female\"])]) / 121"
+"fem-dom" 1.0 0 -7500403 true "" "plot (count patches with [(count skippers-here with [sex = \"female\"]) > (count skippers-here with [sex = \"male\"])]) / 121"
+"pen-2" 1.0 0 -2674135 true "" "plot 0.5"
+"pen-3" 1.0 0 -7171555 true "" "plot ((count patches with [count skippers-here = 0]) / 121)"
+
+MONITOR
+330
+419
+443
+464
+suitable patches
+count patches with [(env < 7) and (env > 3)]
+0
+1
+11
 
 @#$#@#$#@
 # Sex-biased dispersal and population persistence in changing landscapes
