@@ -3,7 +3,7 @@ globals [match running-sr-total]
 breed [skippers skipper]
 
 skippers-own [sex health trait partner partnered?]
-patches-own [env]
+patches-own [env patch-sr]
 
 to setup
   ca
@@ -11,6 +11,7 @@ to setup
   ask patches [
     set env random 20
     set pcolor scale-color 53 env -10 30
+    set patch-sr 0
   ]
   
   create-skippers 200 [
@@ -96,6 +97,12 @@ to selection
   let current-sr ((count skippers with [sex = "male"]) / (count skippers))
   set running-sr-total (running-sr-total + current-sr)
   ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
+  
+  ask patches [
+    if count skippers-here > 0 
+    [set patch-sr ((count skippers-here with [sex = "male"]) / (count skippers-here))]
+    ;[set patch-sr 0]
+]
   
 end
 
@@ -223,7 +230,7 @@ male-disp
 male-disp
 0.01
 2
-2
+1.43
 0.01
 1
 NIL
@@ -372,27 +379,6 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (count skippers with [sex = \"male\"]) / (count skippers)"
 "pen-1" 1.0 0 -2674135 true "" "plot 0.5"
 
-PLOT
-587
-371
-787
-521
-patch dominance
-NIL
-NIL
-0.0
-10.0
-0.0
-1.0
-true
-false
-"" ""
-PENS
-"male-dom" 1.0 0 -16777216 true "" "plot (count patches with [(count skippers-here with [sex = \"male\"]) > (count skippers-here with [sex = \"female\"])]) / 121"
-"fem-dom" 1.0 0 -7500403 true "" "plot (count patches with [(count skippers-here with [sex = \"female\"]) > (count skippers-here with [sex = \"male\"])]) / 121"
-"pen-2" 1.0 0 -2674135 true "" "plot 0.5"
-"pen-3" 1.0 0 -7171555 true "" "plot ((count patches with [count skippers-here = 0]) / 121)"
-
 MONITOR
 330
 419
@@ -403,6 +389,24 @@ count patches with [(env < 7) and (env > 3)]
 0
 1
 11
+
+PLOT
+587
+379
+787
+529
+patch-dom
+NIL
+NIL
+0.0
+1.1
+0.0
+20.0
+false
+false
+"set-plot-pen-mode 1\nset-histogram-num-bars 10" ""
+PENS
+"default" 0.1 1 -16777216 true "" "histogram [patch-sr] of patches"
 
 @#$#@#$#@
 # Sex-biased dispersal and population persistence in changing landscapes
@@ -781,7 +785,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.1.0
+NetLogo 5.2.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
