@@ -1,4 +1,4 @@
-globals [match running-sr-total]
+globals [match running-sr-total suitable unsuitable running-suit running-unsuit]
 
 breed [skippers skipper]
 
@@ -27,7 +27,12 @@ to setup
         [set sex "female" set color 47]
   ]
   
+  set suitable patch-set (patches with [(env < 7) and (env > 3)])
+  set unsuitable patch-set (patches with [(env > 7) or (env < 3)])
+  
   set running-sr-total 0
+  set running-suit 0
+  set running-unsuit 0
   
   reset-ticks
 end
@@ -60,6 +65,9 @@ to disturbance
     ]
   ]
   ask patches [ set pcolor scale-color 53 env -10 30 ]
+ 
+ set suitable patch-set (patches with [(env < 7) and (env > 3)])
+ set unsuitable patch-set (patches with [(env > 7) or (env < 3)])
  
 end
 
@@ -97,6 +105,12 @@ to selection
   let current-sr ((count skippers with [sex = "male"]) / (count skippers))
   set running-sr-total (running-sr-total + current-sr)
   ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
+  
+  let current-suit ((count skippers-on suitable with [sex = "male"]) / (count skippers-on suitable))
+  set running-suit (running-suit + current-suit)
+  
+  let current-unsuit ((count skippers-on unsuitable with [sex = "male"]) / (count skippers-on unsuitable))
+  set running-unsuit (running-unsuit + current-unsuit)
   
   ask patches [
     if count skippers-here > 0 
@@ -230,7 +244,7 @@ male-disp
 male-disp
 0.01
 2
-1.43
+1.58
 0.01
 1
 NIL
@@ -371,13 +385,15 @@ NIL
 0.0
 10.0
 0.0
-1.0
+1.1
 true
 false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot (count skippers with [sex = \"male\"]) / (count skippers)"
 "pen-1" 1.0 0 -2674135 true "" "plot 0.5"
+"pen-2" 1.0 0 -7500403 true "" "if any? skippers-on suitable [\nplot (count (skippers-on suitable) with [sex = \"male\"]) / (count skippers-on suitable)\n]"
+"pen-3" 1.0 0 -955883 true "" "if any? skippers-on unsuitable [\nplot (count (skippers-on unsuitable) with [sex = \"male\"]) / (count skippers-on unsuitable)\n]"
 
 MONITOR
 330
@@ -407,6 +423,28 @@ false
 "set-plot-pen-mode 1\nset-histogram-num-bars 10" ""
 PENS
 "default" 0.1 1 -16777216 true "" "histogram [patch-sr] of patches"
+
+MONITOR
+241
+472
+314
+517
+suitable-sr
+(count (skippers-on suitable) with [sex = \"male\"]) / (count skippers-on suitable)
+2
+1
+11
+
+MONITOR
+330
+473
+427
+518
+unsuitable-sr
+(count (skippers-on unsuitable) with [sex = \"male\"]) / (count skippers-on unsuitable)
+2
+1
+11
 
 @#$#@#$#@
 # Sex-biased dispersal and population persistence in changing landscapes
@@ -824,6 +862,8 @@ NetLogo 5.2.0
     <go>go</go>
     <metric>ticks</metric>
     <metric>(running-sr-total / ticks)</metric>
+    <metric>(running-suit / ticks)</metric>
+    <metric>(running-unsuit / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
       <value value="1"/>
