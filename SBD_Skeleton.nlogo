@@ -106,11 +106,13 @@ to selection
   set running-sr-total (running-sr-total + current-sr)
   ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
   
+  if count (skippers-on suitable) > 0 [
   let current-suit ((count (skippers-on suitable) with [sex = "male"]) / (count skippers-on suitable))
-  set running-suit (running-suit + current-suit)
+  set running-suit (running-suit + current-suit) ]
   
+  if count (skippers-on unsuitable) > 0 [
   let current-unsuit ((count (skippers-on unsuitable) with [sex = "male"]) / (count skippers-on unsuitable))
-  set running-unsuit (running-unsuit + current-unsuit)
+  set running-unsuit (running-unsuit + current-unsuit) ]
   
   ask patches [
     if count skippers-here > 0 
@@ -244,7 +246,7 @@ male-disp
 male-disp
 0.01
 2
-1.58
+1.81
 0.01
 1
 NIL
@@ -259,7 +261,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.08
+0.11
 0.01
 1
 NIL
@@ -866,19 +868,17 @@ NetLogo 5.2.0
     <metric>(running-unsuit / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
+      <value value="0.25"/>
+      <value value="0.5"/>
       <value value="1"/>
       <value value="2"/>
-      <value value="3"/>
-      <value value="4"/>
-      <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="fem-disp">
       <value value="0.1"/>
+      <value value="0.25"/>
+      <value value="0.5"/>
       <value value="1"/>
       <value value="2"/>
-      <value value="3"/>
-      <value value="4"/>
-      <value value="5"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
