@@ -106,10 +106,10 @@ to selection
   set running-sr-total (running-sr-total + current-sr)
   ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
   
-  let current-suit ((count skippers-on suitable with [sex = "male"]) / (count skippers-on suitable))
+  let current-suit ((count (skippers-on suitable) with [sex = "male"]) / (count skippers-on suitable))
   set running-suit (running-suit + current-suit)
   
-  let current-unsuit ((count skippers-on unsuitable with [sex = "male"]) / (count skippers-on unsuitable))
+  let current-unsuit ((count (skippers-on unsuitable) with [sex = "male"]) / (count skippers-on unsuitable))
   set running-unsuit (running-unsuit + current-unsuit)
   
   ask patches [
