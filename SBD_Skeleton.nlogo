@@ -1,4 +1,4 @@
-globals [match running-sr-total suitable unsuitable running-suit running-unsuit]
+globals [match running-sr-total suitable unsuitable running-suit running-unsuit running-single]
 
 breed [skippers skipper]
 
@@ -33,6 +33,7 @@ to setup
   set running-sr-total 0
   set running-suit 0
   set running-unsuit 0
+  set running-single 0
   
   reset-ticks
 end
@@ -144,6 +145,9 @@ to breeding
     ]
   ]
   ]
+  
+  let current-single ((count skippers with [partnered? = false]) / (count skippers) )
+  set running-single (running-single + current-single)
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -866,6 +870,7 @@ NetLogo 5.2.0
     <metric>(running-sr-total / ticks)</metric>
     <metric>(running-suit / ticks)</metric>
     <metric>(running-unsuit / ticks)</metric>
+    <metric>(running-single / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
       <value value="0.25"/>
