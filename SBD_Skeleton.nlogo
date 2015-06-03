@@ -863,7 +863,7 @@ NetLogo 5.2.0
     <steppedValueSet variable="dist-extent" first="10" step="20" last="90"/>
     <steppedValueSet variable="dist-freq" first="5" step="10" last="25"/>
   </experiment>
-  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="true">
+  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>ticks</metric>
