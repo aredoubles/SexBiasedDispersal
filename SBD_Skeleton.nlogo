@@ -101,6 +101,8 @@ to selection
     ;; Carrying capacity now instituted with dispersal, rather than selection
     ]
   
+  if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
+  
   ;; Calculate the overall sex ratio by keeping a running tally, and in data analysis, dividing that by the number of ticks
   ;; Final sex ratio far too skewed, small sample sizes
   let current-sr ((count skippers with [sex = "male"]) / (count skippers))
@@ -250,7 +252,7 @@ male-disp
 male-disp
 0.01
 2
-1.81
+0.1
 0.01
 1
 NIL
@@ -265,7 +267,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.11
+0.1
 0.01
 1
 NIL
