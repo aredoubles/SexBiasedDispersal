@@ -101,12 +101,14 @@ to selection
     ;; Carrying capacity now instituted with dispersal, rather than selection
     ]
   
-  if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
+  ;if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
+  ; Apparently 'stop' only exits from the enclosing procedure, not the whole model? Interesting!
   
   ;; Calculate the overall sex ratio by keeping a running tally, and in data analysis, dividing that by the number of ticks
   ;; Final sex ratio far too skewed, small sample sizes
+  if count skippers > 0 [
   let current-sr ((count skippers with [sex = "male"]) / (count skippers))
-  set running-sr-total (running-sr-total + current-sr)
+  set running-sr-total (running-sr-total + current-sr) ]
   ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
   
   if count (skippers-on suitable) > 0 [
@@ -148,8 +150,9 @@ to breeding
   ]
   ]
   
+  if count skippers > 0 [
   let current-single ((count skippers with [partnered? = false]) / (count skippers) )
-  set running-single (running-single + current-single)
+  set running-single (running-single + current-single) ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
