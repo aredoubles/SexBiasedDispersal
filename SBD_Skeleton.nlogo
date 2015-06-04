@@ -871,7 +871,6 @@ NetLogo 5.2.0
   <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <metric>ticks</metric>
     <metric>(running-sr-total / ticks)</metric>
     <metric>(running-suit / ticks)</metric>
     <metric>(running-unsuit / ticks)</metric>
@@ -881,6 +880,9 @@ NetLogo 5.2.0
       <value value="0.25"/>
       <value value="0.5"/>
       <value value="1"/>
+      <value value="1.25"/>
+      <value value="1.5"/>
+      <value value="1.75"/>
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="fem-disp">
@@ -888,6 +890,9 @@ NetLogo 5.2.0
       <value value="0.25"/>
       <value value="0.5"/>
       <value value="1"/>
+      <value value="1.25"/>
+      <value value="1.5"/>
+      <value value="1.75"/>
       <value value="2"/>
     </enumeratedValueSet>
   </experiment>
