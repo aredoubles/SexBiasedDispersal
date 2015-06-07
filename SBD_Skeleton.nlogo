@@ -877,18 +877,16 @@ NetLogo 5.2.0
     <metric>(running-single / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
-      <value value="0.25"/>
       <value value="0.5"/>
       <value value="1"/>
-      <value value="1.25"/>
       <value value="1.5"/>
-      <value value="1.75"/>
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="fem-disp">
       <value value="0.1"/>
       <value value="0.25"/>
       <value value="0.5"/>
+      <value value="0.75"/>
       <value value="1"/>
       <value value="1.25"/>
       <value value="1.5"/>
