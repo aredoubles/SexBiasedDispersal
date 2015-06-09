@@ -1,9 +1,9 @@
-globals [match running-sr-total suitable unsuitable running-suit running-unsuit running-single]
+globals [match running-sr-total suitable unsuitable running-suit running-unsuit running-single running-occ]
 
 breed [skippers skipper]
 
 skippers-own [sex health trait partner partnered?]
-patches-own [env patch-sr]
+patches-own [env patch-sr occupied?]
 
 to setup
   ca
@@ -12,6 +12,7 @@ to setup
     set env random 20
     set pcolor scale-color 53 env -10 30
     set patch-sr 0
+    set occupied? false
   ]
   
   create-skippers 200 [
@@ -34,6 +35,7 @@ to setup
   set running-suit 0
   set running-unsuit 0
   set running-single 0
+  set running-occ 0
   
   reset-ticks
 end
@@ -54,22 +56,6 @@ to go
     set partner nobody]
   
   tick
-end
-
-to disturbance
-  if ticks mod dist-freq = 0 [
-    ask n-of dist-extent patches [
-      ;ifelse random-float 1 < 0.5
-      ;[set env (env + random-poisson 3)]
-      ;[set env (env - random-poisson 3)]
-      set env random-normal env 1.5
-    ]
-  ]
-  ask patches [ set pcolor scale-color 53 env -10 30 ]
- 
- set suitable patch-set (patches with [(env < 7) and (env > 3)])
- set unsuitable patch-set (patches with [(env > 7) or (env < 3)])
- 
 end
 
 to dispersal
@@ -123,7 +109,7 @@ to selection
     if count skippers-here > 0 
     [set patch-sr ((count skippers-here with [sex = "male"]) / (count skippers-here))]
     ;[set patch-sr 0]
-]
+  ]
   
 end
 
@@ -146,6 +132,10 @@ to breeding
       ask partner [
         set partnered? true
       ]
+      
+      ask patch-here [
+        set occupied? true
+      ]
     ]
   ]
   ]
@@ -153,6 +143,25 @@ to breeding
   if count skippers > 0 [
   let current-single ((count skippers with [partnered? = false]) / (count skippers) )
   set running-single (running-single + current-single) ]
+  
+  let current-occ ( (count patches with [occupied? = true]) / (count patches with [suitable]) )
+  set running-occ (running-occ + current-occ)
+end
+
+to disturbance
+  if ticks mod dist-freq = 0 [
+    ask n-of dist-extent patches [
+      ;ifelse random-float 1 < 0.5
+      ;[set env (env + random-poisson 3)]
+      ;[set env (env - random-poisson 3)]
+      set env random-normal env 1.5
+    ]
+  ]
+  ask patches [ set pcolor scale-color 53 env -10 30 ]
+ 
+ set suitable patch-set (patches with [(env < 7) and (env > 3)])
+ set unsuitable patch-set (patches with [(env > 7) or (env < 3)])
+ 
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -255,7 +264,7 @@ male-disp
 male-disp
 0.01
 2
-0.1
+2.1
 0.01
 1
 NIL
@@ -270,7 +279,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.1
+2.1
 0.01
 1
 NIL
@@ -868,7 +877,7 @@ NetLogo 5.2.0
     <steppedValueSet variable="dist-extent" first="10" step="20" last="90"/>
     <steppedValueSet variable="dist-freq" first="5" step="10" last="25"/>
   </experiment>
-  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="false">
+  <experiment name="dispersalratios" repetitions="80" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>(running-sr-total / ticks)</metric>
@@ -877,21 +886,23 @@ NetLogo 5.2.0
     <metric>(running-single / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
-      <value value="0.5"/>
-      <value value="1"/>
-      <value value="1.5"/>
-      <value value="2"/>
+      <value value="0.6"/>
+      <value value="1.1"/>
+      <value value="1.6"/>
+      <value value="2.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="fem-disp">
       <value value="0.1"/>
-      <value value="0.25"/>
+      <value value="0.3"/>
       <value value="0.5"/>
-      <value value="0.75"/>
-      <value value="1"/>
-      <value value="1.25"/>
+      <value value="0.7"/>
+      <value value="0.9"/>
+      <value value="1.1"/>
+      <value value="1.3"/>
       <value value="1.5"/>
-      <value value="1.75"/>
-      <value value="2"/>
+      <value value="1.7"/>
+      <value value="1.9"/>
+      <value value="2.1"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
