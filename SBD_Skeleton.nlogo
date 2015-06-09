@@ -115,7 +115,7 @@ end
 
 to breeding
   
-  ask skippers [
+  ask skippers-on suitable [
   if not partnered? [
     set partner one-of (other skippers-here) with [(sex != [sex] of myself) and ( not partnered? )]
     if partner != nobody [
@@ -144,8 +144,9 @@ to breeding
   let current-single ((count skippers with [partnered? = false]) / (count skippers) )
   set running-single (running-single + current-single) ]
   
-  let current-occ ( (count patches with [occupied? = true]) / (count patches with [suitable]) )
+  let current-occ ( (count patches with [occupied? = true]) / (count suitable) )
   set running-occ (running-occ + current-occ)
+  ask patches [set occupied? false]
 end
 
 to disturbance
@@ -264,7 +265,7 @@ male-disp
 male-disp
 0.01
 2
-2.1
+0.25
 0.01
 1
 NIL
@@ -279,7 +280,7 @@ fem-disp
 fem-disp
 0.01
 2
-2.1
+0.43
 0.01
 1
 NIL
@@ -421,7 +422,7 @@ MONITOR
 443
 464
 suitable patches
-count patches with [(env < 7) and (env > 3)]
+count suitable
 0
 1
 11
