@@ -265,7 +265,7 @@ male-disp
 male-disp
 0.01
 2
-0.25
+0.34
 0.01
 1
 NIL
@@ -280,7 +280,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.43
+0.14
 0.01
 1
 NIL
@@ -885,6 +885,7 @@ NetLogo 5.2.0
     <metric>(running-suit / ticks)</metric>
     <metric>(running-unsuit / ticks)</metric>
     <metric>(running-single / ticks)</metric>
+    <metric>(running-occ / ticks)</metric>
     <enumeratedValueSet variable="male-disp">
       <value value="0.1"/>
       <value value="0.6"/>
