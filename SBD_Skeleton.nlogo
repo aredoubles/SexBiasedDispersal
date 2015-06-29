@@ -270,7 +270,7 @@ male-disp
 male-disp
 0.01
 2
-0.5
+0.04
 0.01
 1
 NIL
@@ -285,7 +285,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.15
+0.1
 0.01
 1
 NIL
@@ -912,7 +912,7 @@ NetLogo 5.2.0
       <value value="2.1"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="pureequal" repetitions="100" runMetricsEveryStep="false">
+  <experiment name="pureequal" repetitions="150" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>(running-sr-total / ticks)</metric>
@@ -920,8 +920,8 @@ NetLogo 5.2.0
     <metric>(running-unsuit / ticks)</metric>
     <metric>(running-single / ticks)</metric>
     <metric>(running-occ / ticks)</metric>
-    <steppedValueSet variable="male-disp" first="0.1" step="0.1" last="0.5"/>
-    <steppedValueSet variable="fem-disp" first="0.1" step="0.1" last="0.5"/>
+    <steppedValueSet variable="male-disp" first="0.1" step="0.1" last="0.6"/>
+    <steppedValueSet variable="fem-disp" first="0.1" step="0.1" last="0.6"/>
   </experiment>
 </experiments>
 @#$#@#$#@
