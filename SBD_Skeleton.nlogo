@@ -64,15 +64,20 @@ to dispersal
     set heading random 360
     
     ;; Male philopatry, only satellite males disperse
-    let overcap ((count skippers-here with [sex = "male"]) - carrying-cap)
-    if overcap > 0 [
-      ask min-n-of overcap skippers-here with [sex = "male"] [match] [fd random-poisson male-disp]
-      ]
+    ;let overcap ((count skippers-here with [sex = "male"]) - carrying-cap)
+    ;if overcap > 0 [
+    ;  ask min-n-of overcap skippers-here with [sex = "male"] [match] [fd random-poisson male-disp]
+    ;  ]
     ;; If no overcap (or male is well-matched to env), males don't move
     
     ;; Female philopatry
     if sex = "female" [
       fd random-poisson fem-disp
+    ]
+    
+    ; Males disperse just as females, without philopatry (use this OR philopatry above)
+    if sex = "male" [
+      fd random-poisson male-disp
     ]
   ]
 end
@@ -265,7 +270,7 @@ male-disp
 male-disp
 0.01
 2
-0.34
+2.1
 0.01
 1
 NIL
@@ -280,7 +285,7 @@ fem-disp
 fem-disp
 0.01
 2
-0.14
+2.1
 0.01
 1
 NIL
@@ -878,7 +883,7 @@ NetLogo 5.2.0
     <steppedValueSet variable="dist-extent" first="10" step="20" last="90"/>
     <steppedValueSet variable="dist-freq" first="5" step="10" last="25"/>
   </experiment>
-  <experiment name="dispersalratios" repetitions="80" runMetricsEveryStep="false">
+  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>(running-sr-total / ticks)</metric>
