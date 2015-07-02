@@ -124,12 +124,10 @@ to breeding
   ]
   ]
   
+  if (count skippers > 0) [
   let current-single ((count skippers with [partnered? = false]) / (count skippers) )
-  set running-single (running-single + current-single) 
+  set running-single (running-single + current-single) ]
   
-  let current-occ ( (count patches with [occupied? = true]) / (count suitable) )
-  set running-occ (running-occ + current-occ)
-  ask patches [set occupied? false]
 end
 
 to disturbance
@@ -169,6 +167,11 @@ to tally-ratios
       set patch-sr ((count skippers-here with [sex = "male"]) / (count skippers-here))]
     ;[set patch-sr 0]
   ]
+  
+  let current-occ ( (count patches with [occupied? = true]) / (count suitable) )
+  set running-occ (running-occ + current-occ)
+  ask patches [set occupied? false]
+  
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
