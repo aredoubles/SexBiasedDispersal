@@ -60,19 +60,24 @@ end
 
 to dispersal
   ask skippers [
-    set match ( env - trait )
+    ;set match ( env - trait )
     set heading random 360
     
     ;; Male philopatry, only satellite males disperse
-    let overcap ((count skippers-here with [sex = "male"]) - carrying-cap)
-    if overcap > 0 [
-      ask min-n-of overcap skippers-here with [sex = "male"] [match] [fd random-poisson male-disp]
-      ]
+    ;let overcap ((count skippers-here with [sex = "male"]) - carrying-cap)
+    ;if overcap > 0 [
+    ;  ask min-n-of overcap skippers-here with [sex = "male"] [match] [fd random-poisson male-disp]
+    ;  ]
     ;; If no overcap (or male is well-matched to env), males don't move
     
     ;; Female philopatry
     if sex = "female" [
       fd random-poisson fem-disp
+    ]
+    
+    ; Males disperse just as females, without philopatry (use this OR philopatry above)
+    if sex = "male" [
+      fd random-poisson male-disp
     ]
   ]
 end
@@ -121,7 +126,7 @@ to breeding
     if partner != nobody [
       set partnered? true
       set health health - 5    ;; Extra energetic costs of reproduction
-      hatch round (clutch / (count skippers-here with [sex = "female"])) [
+      hatch round (clutch / (count skippers-here / 2)) [
         ;set trait [env] of patch-here
         set health init-health
         ifelse random-float 1 < 0.5
@@ -264,8 +269,8 @@ SLIDER
 male-disp
 male-disp
 0.01
-2
-0.34
+1.5
+0.3
 0.01
 1
 NIL
@@ -279,8 +284,8 @@ SLIDER
 fem-disp
 fem-disp
 0.01
-2
-0.14
+1.5
+0.1
 0.01
 1
 NIL
@@ -878,7 +883,7 @@ NetLogo 5.2.0
     <steppedValueSet variable="dist-extent" first="10" step="20" last="90"/>
     <steppedValueSet variable="dist-freq" first="5" step="10" last="25"/>
   </experiment>
-  <experiment name="dispersalratios" repetitions="80" runMetricsEveryStep="false">
+  <experiment name="dispersalratios" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>(running-sr-total / ticks)</metric>
@@ -906,6 +911,17 @@ NetLogo 5.2.0
       <value value="1.9"/>
       <value value="2.1"/>
     </enumeratedValueSet>
+  </experiment>
+  <experiment name="pureequal" repetitions="150" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>(running-sr-total / ticks)</metric>
+    <metric>(running-suit / ticks)</metric>
+    <metric>(running-unsuit / ticks)</metric>
+    <metric>(running-single / ticks)</metric>
+    <metric>(running-occ / ticks)</metric>
+    <steppedValueSet variable="male-disp" first="0.1" step="0.1" last="0.6"/>
+    <steppedValueSet variable="fem-disp" first="0.1" step="0.1" last="0.6"/>
   </experiment>
 </experiments>
 @#$#@#$#@
