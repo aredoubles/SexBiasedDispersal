@@ -60,7 +60,7 @@ end
 
 to dispersal
   ask skippers [
-    set match ( env - trait )
+    ;set match ( env - trait )
     set heading random 360
     
     ;; Male philopatry, only satellite males disperse
@@ -126,7 +126,7 @@ to breeding
     if partner != nobody [
       set partnered? true
       set health health - 5    ;; Extra energetic costs of reproduction
-      hatch round (clutch / (count skippers-here with [sex = "female"])) [
+      hatch round (clutch / (count skippers-here / 2)) [
         ;set trait [env] of patch-here
         set health init-health
         ifelse random-float 1 < 0.5
@@ -269,8 +269,8 @@ SLIDER
 male-disp
 male-disp
 0.01
-2
-0.04
+1.5
+0.3
 0.01
 1
 NIL
@@ -284,7 +284,7 @@ SLIDER
 fem-disp
 fem-disp
 0.01
-2
+1.5
 0.1
 0.01
 1
