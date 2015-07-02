@@ -274,7 +274,7 @@ male-disp
 male-disp
 0.01
 1.5
-0.3
+0.6
 0.01
 1
 NIL
@@ -289,7 +289,7 @@ fem-disp
 fem-disp
 0.01
 1.5
-0.1
+0.3
 0.01
 1
 NIL
@@ -924,6 +924,7 @@ NetLogo 5.2.0
     <metric>(running-unsuit / ticks)</metric>
     <metric>(running-single / ticks)</metric>
     <metric>(running-occ / ticks)</metric>
+    <metric>date-and-time</metric>
     <steppedValueSet variable="male-disp" first="0.1" step="0.1" last="0.6"/>
     <steppedValueSet variable="fem-disp" first="0.1" step="0.1" last="0.6"/>
   </experiment>
