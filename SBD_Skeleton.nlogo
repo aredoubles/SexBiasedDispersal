@@ -41,11 +41,7 @@ to setup
 end
 
 to go
-  
-  ;if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
-  ;if count skippers >= 4000 [ stop ]
-  ;if ticks >= 2800 [stop]
-  
+    
   dispersal
   selection
   breeding
@@ -56,6 +52,8 @@ to go
     set partner nobody]
   
   if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
+  
+  tally-ratios
   
   tick
 end
@@ -96,28 +94,7 @@ to selection
   
   ;if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
   ; Apparently 'stop' only exits from the enclosing procedure, not the whole model? Interesting!
-  
-  ;; Calculate the overall sex ratio by keeping a running tally, and in data analysis, dividing that by the number of ticks
-  ;; Final sex ratio far too skewed, small sample sizes
-  if count skippers > 0 [
-  let current-sr ((count skippers with [sex = "male"]) / (count skippers))
-  set running-sr-total (running-sr-total + current-sr) ]
-  ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
-  
-  if count (skippers-on suitable) > 0 [
-  let current-suit ((count (skippers-on suitable) with [sex = "male"]) / (count skippers-on suitable))
-  set running-suit (running-suit + current-suit) ]
-  
-  if count (skippers-on unsuitable) > 0 [
-  let current-unsuit ((count (skippers-on unsuitable) with [sex = "male"]) / (count skippers-on unsuitable))
-  set running-unsuit (running-unsuit + current-unsuit) ]
-  
-  ask patches [
-    if count skippers-here > 0 
-    [set patch-sr ((count skippers-here with [sex = "male"]) / (count skippers-here))]
-    ;[set patch-sr 0]
-  ]
-  
+   
 end
 
 to breeding
@@ -147,9 +124,8 @@ to breeding
   ]
   ]
   
-  if count skippers > 0 [
   let current-single ((count skippers with [partnered? = false]) / (count skippers) )
-  set running-single (running-single + current-single) ]
+  set running-single (running-single + current-single) 
   
   let current-occ ( (count patches with [occupied? = true]) / (count suitable) )
   set running-occ (running-occ + current-occ)
@@ -170,6 +146,29 @@ to disturbance
  set suitable patch-set (patches with [(env < 7) and (env > 3)])
  set unsuitable patch-set (patches with [(env > 7) or (env < 3)])
  
+end
+
+to tally-ratios
+  ;; Calculate the overall sex ratio by keeping a running tally, and in data analysis, dividing that by the number of ticks
+  ;; Final sex ratio far too skewed, small sample sizes
+  let current-sr ((count skippers with [sex = "male"]) / (count skippers))
+  set running-sr-total (running-sr-total + current-sr) 
+  ;; In data analysis (or earlier, in Behavior Space): sex-ratio = (running-sr-total / ticks)
+  
+  if count (skippers-on suitable) > 0 [
+  let current-suit ((count (skippers-on suitable) with [sex = "male"]) / (count skippers-on suitable))
+  set running-suit (running-suit + current-suit) ]
+  
+  if count (skippers-on unsuitable) > 0 [
+  let current-unsuit ((count (skippers-on unsuitable) with [sex = "male"]) / (count skippers-on unsuitable))
+  set running-unsuit (running-unsuit + current-unsuit) ]
+  
+  ; Am I actually using this patch-sr variable at all? Just for QC?
+  ask patches [
+    if count skippers-here > 0 [
+      set patch-sr ((count skippers-here with [sex = "male"]) / (count skippers-here))]
+    ;[set patch-sr 0]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
