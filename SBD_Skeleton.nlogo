@@ -42,7 +42,7 @@ end
 
 to go
   
-  if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
+  ;if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
   ;if count skippers >= 4000 [ stop ]
   ;if ticks >= 2800 [stop]
   
@@ -54,6 +54,8 @@ to go
   ask skippers [
     set partnered? false
     set partner nobody]
+  
+  if (count skippers with [sex = "male"] = 0) or (count skippers with [sex = "female"] = 0) [stop]
   
   tick
 end
