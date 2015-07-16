@@ -289,7 +289,7 @@ fem-disp
 fem-disp
 0.01
 1.5
-0.3
+0.6
 0.01
 1
 NIL
@@ -420,7 +420,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count skippers with [sex = \"male\"]) / (count skippers)"
+"default" 1.0 0 -16777216 true "" "plot ((count skippers with [sex = \"male\"]) / (count skippers))"
 "pen-1" 1.0 0 -2674135 true "" "plot 0.5"
 "pen-2" 1.0 0 -7500403 true "" "if any? skippers-on suitable [\nplot (count (skippers-on suitable) with [sex = \"male\"]) / (count skippers-on suitable)\n]"
 "pen-3" 1.0 0 -955883 true "" "if any? skippers-on unsuitable [\nplot (count (skippers-on unsuitable) with [sex = \"male\"]) / (count skippers-on unsuitable)\n]"
@@ -916,7 +916,7 @@ NetLogo 5.2.0
       <value value="2.1"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="pureequal" repetitions="150" runMetricsEveryStep="false">
+  <experiment name="pureequal" repetitions="600" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>(running-sr-total / ticks)</metric>
