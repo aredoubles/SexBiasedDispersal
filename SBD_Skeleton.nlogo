@@ -289,7 +289,7 @@ fem-disp
 fem-disp
 0.01
 1.5
-0.6
+0.1
 0.01
 1
 NIL
