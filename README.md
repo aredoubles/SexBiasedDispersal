@@ -2,7 +2,9 @@
 *Roger Shaw*  
 *31 Aug 2015*
 
-And ODD (Overview, Design concepts, and Details) protocol [1][1]
+This description follows the ODD (Overview, Design concepts, and Details) protocol [1][1]
+
+Full model explanation published in Shaw 2016 (not yet available online, permalink added when possible).
 
 ### Purpose
 
